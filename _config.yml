@@ -125,12 +125,12 @@ staticman:
       options:
         format           : "iso8601" # "iso8601" (default), "timestamp-seconds", "timestamp-milliseconds"
 atom_feed:
-  hide                   : false     # change to true to hide the RSS feed in the footer
+  hide                   : true     # change to true to hide the RSS feed in the footer
   path                   : # blank (default) uses feed.xml
 
 
 # SEO Related
-google_site_verification :
+google_site_verification : pV-pMnflZP9z0xCA0bzly8MZqRsmvzmNVVDqs_fUIuE
 bing_site_verification   :
 alexa_site_verification  :
 yandex_site_verification :
