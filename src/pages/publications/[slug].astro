@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../data/site';
 
 export async function getStaticPaths() {
   const entries = await getCollection('publications');
@@ -11,28 +12,65 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { title, venue, category, date, authors, citation, paperUrl, slidesUrl, bibtexUrl, placeholder } = entry.data;
+const {
+  title,
+  venue,
+  category,
+  date,
+  authors,
+  citation,
+  oral,
+  teaserImage,
+  paperUrl,
+  slidesUrl,
+  bibtexUrl,
+  projectUrl,
+  githubUrl,
+  arxivUrl,
+  placeholder,
+} = entry.data;
 const { Content } = await render(entry);
 
 const categoryLabel: Record<string, string> = {
-  journal: 'Journal Article',
   conference: 'Conference Paper',
-  book: 'Book Chapter',
+  preprint: 'Preprint',
 };
+
+const hasSharedAuthor = authors.some((author) => author.endsWith('*'));
 ---
 
 <BaseLayout title={title} description={entry.data.excerpt}>
   <article class="container page">
     <div class="page__meta">
       <span class="eyebrow">{categoryLabel[category]}</span>
+      {oral && <span class="oral-tag">Oral</span>}
       {placeholder && <span class="placeholder-badge">Placeholder</span>}
     </div>
     <h1 class="page__title">{title}</h1>
     <p class="page__venue">{venue} · {date.getFullYear()}</p>
-    <p class="page__authors">{authors.join(', ')}</p>
+    <p class="page__authors">
+      {authors.map((author, i) => (
+        <>
+          {i > 0 && ', '}
+          {(author.endsWith('*') ? author.slice(0, -1) : author) === site.name ? <strong>{author}</strong> : author}
+        </>
+      ))}
+      {hasSharedAuthor && <span class="page__footnote"> · * Equal contribution</span>}
+    </p>
+
+    {
+      teaserImage ? (
+        <img src={teaserImage} alt="" class="page__teaser" width="960" height="540" />
+      ) : (
+        <div class="page__teaser-placeholder">Teaser image</div>
+      )
+    }
 
     <div class="page__links">
       {paperUrl && <a href={paperUrl} class="button">Paper</a>}
+      {arxivUrl && <a href={arxivUrl} class="button">arXiv</a>}
+      {projectUrl && <a href={projectUrl} class="button">Project Page</a>}
+      {githubUrl && <a href={githubUrl} class="button">Code</a>}
       {slidesUrl && <a href={slidesUrl} class="button">Slides</a>}
       {bibtexUrl && <a href={bibtexUrl} class="button">BibTeX</a>}
     </div>
@@ -60,6 +98,22 @@ const categoryLabel: Record<string, string> = {
     margin-bottom: var(--space-2);
   }
 
+  .page__meta .eyebrow {
+    margin-bottom: 0;
+  }
+
+  .oral-tag {
+    display: inline-block;
+    background: var(--color-accent);
+    color: var(--color-accent-contrast);
+    border-radius: 999px;
+    padding: 0.15em 0.65em;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
   .page__title {
     font-size: var(--size-h1);
     margin-bottom: var(--space-2);
@@ -74,8 +128,35 @@ const categoryLabel: Record<string, string> = {
     margin-bottom: var(--space-3);
   }
 
+  .page__footnote {
+    font-style: italic;
+  }
+
+  .page__teaser {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 1rem;
+    margin-bottom: var(--space-3);
+  }
+
+  .page__teaser-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 1px dashed var(--color-border);
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+    font-size: var(--size-small);
+    margin-bottom: var(--space-3);
+  }
+
   .page__links {
     display: flex;
+    flex-wrap: wrap;
     gap: var(--space-2);
     margin-bottom: var(--space-4);
   }

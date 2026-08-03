@@ -1,27 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Banner from '../components/home/Banner.astro';
 import Hero from '../components/home/Hero.astro';
 import FeaturedLinks from '../components/home/FeaturedLinks.astro';
 import Reveal from '../components/sections/Reveal.astro';
-import { site } from '../data/site';
 ---
 
 <BaseLayout>
+  <Banner />
   <Hero />
 
   <Reveal as="section" class="about container">
-    <img src={site.avatar} alt={site.name} class="about__photo" width="128" height="128" />
-    <div class="about__text">
-      <div class="about__heading">
-        <span class="eyebrow">About</span>
-        <span class="placeholder-badge">Placeholder</span>
-      </div>
-      <p>
-        Placeholder bio paragraph — replace with a real summary of research interests, background,
-        and current focus. This block previews layout and typography density for a few sentences
-        of longer-form text sitting alongside a profile photo.
-      </p>
-    </div>
+    <span class="eyebrow">About</span>
+    <p>
+      <span class="placeholder-badge">Placeholder</span> bio paragraph — replace with a real summary
+      of research interests, background, and current focus.
+    </p>
   </Reveal>
 
   <Reveal as="section" class="container links-section">
@@ -30,40 +24,16 @@ import { site } from '../data/site';
 </BaseLayout>
 
 <style>
-  .about {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--space-4);
-    align-items: start;
+  :global(.about) {
     padding-block: var(--space-4);
-    max-width: var(--page-width);
-  }
-
-  .about__photo {
-    width: 8rem;
-    height: 8rem;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-
-  .about__text {
     max-width: var(--content-width);
   }
 
-  .about__heading {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    margin-bottom: 0.4rem;
+  :global(.about p) {
+    margin-top: var(--space-2);
   }
 
-  .links-section {
+  :global(.links-section) {
     padding-block: var(--space-5) var(--space-6);
-  }
-
-  @media (max-width: 30rem) {
-    .about {
-      grid-template-columns: 1fr;
-    }
   }
 </style>

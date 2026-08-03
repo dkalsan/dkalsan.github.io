@@ -10,8 +10,7 @@ allPublications.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const categories = [
   { key: 'conference', label: 'Conference Papers' },
-  { key: 'journal', label: 'Journal Articles' },
-  { key: 'book', label: 'Books & Chapters' },
+  { key: 'preprint', label: 'Preprints' },
 ] as const;
 ---
 
@@ -43,7 +42,7 @@ const categories = [
     padding-block: var(--space-5) var(--space-6);
   }
 
-  .pub-group {
+  :global(.pub-group) {
     margin-bottom: var(--space-5);
   }
 

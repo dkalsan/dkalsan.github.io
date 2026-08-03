@@ -8,6 +8,7 @@
 
 html {
   color-scheme: light;
+  scrollbar-gutter: stable;
 }
 
 body {
@@ -113,17 +114,13 @@ ol {
 }
 
 .placeholder-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4em;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+  display: inline;
+  font-size: 0.8125rem;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
   color: var(--color-text-muted);
-  border: 1px dashed var(--color-border);
-  border-radius: 999px;
-  padding: 0.25em 0.75em;
 }
 
 /* Scroll-reveal states: JS toggles .is-visible, CSS owns the actual animation values */
@@ -144,4 +141,13 @@ ol {
     transform: none;
     transition: none;
   }
+}
+
+/* CV Rush Mode: collapse each section to its first (most recent) entry, hide descriptions */
+[data-rush-target].rush-mode .cv-entry:not(:first-of-type) {
+  display: none;
+}
+
+[data-rush-target].rush-mode .cv-entry__description {
+  display: none;
 }

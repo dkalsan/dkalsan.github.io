@@ -1,0 +1,39 @@
+---
+import { site } from '../../data/site';
+---
+
+<div class="banner">
+  <a href={`mailto:${site.email}`} class="banner__inner container">
+    <span class="banner__text">{site.internshipBanner.text}</span>
+    <span class="banner__link">{site.internshipBanner.linkText}</span>
+  </a>
+</div>
+
+<style>
+  .banner {
+    background: var(--color-accent-contrast);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .banner__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4em;
+    padding-block: 0.75rem;
+    text-decoration: none;
+    text-align: center;
+    font-size: var(--size-small);
+  }
+
+  .banner__text {
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .banner__link {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+</style>

@@ -6,12 +6,21 @@ export interface NavItem {
 export const site = {
   name: 'Damjan Kalšan',
   title: 'Damjan Kalšan',
-  bio: 'Computer Vision PhD Student @ CVL',
+  bio: 'Computer Vision PhD Student',
   employer: 'Heidelberg University',
   location: 'Germany',
   email: 'damjan.kalsan@iwr.uni-heidelberg.de',
   avatar: '/images/bio-photo.jpg',
   description: "Damjan Kalšan's academic portfolio",
+  advisor: {
+    name: 'Prof. Dr. Carsten Rother',
+    url: 'https://hci.iwr.uni-heidelberg.de/vislearn/people/carsten-rother/',
+  },
+  affiliations: ['Computer Vision and Learning Lab (CVL)'],
+  internshipBanner: {
+    text: 'Looking for CV Research Internships starting April 2027.',
+    linkText: "Let's talk →",
+  },
   social: {
     github: 'https://github.com/dkalsan',
     linkedin: 'https://www.linkedin.com/in/damjankalsan',

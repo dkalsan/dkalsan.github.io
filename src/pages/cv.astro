@@ -8,9 +8,10 @@ import { site } from '../data/site';
 ---
 
 <BaseLayout title="CV" description={`Curriculum vitae of ${site.name}.`}>
-  <div class="container page">
-    <Reveal>
+  <div class="container page" data-rush-target>
+    <Reveal class="page__heading-row">
       <SectionHeading eyebrow="Background" title="CV" />
+      <button type="button" class="button rush-toggle" data-rush-toggle aria-pressed="false">⚡ Rush Mode</button>
     </Reveal>
 
     <Reveal as="section">
@@ -28,11 +29,27 @@ import { site } from '../data/site';
       </ul>
     </Reveal>
   </div>
+  <script>
+    import '../scripts/rush-mode.ts';
+  </script>
 </BaseLayout>
 
 <style>
   .page {
     padding-block: var(--space-5) var(--space-6);
+  }
+
+  :global(.page__heading-row) {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .rush-toggle {
+    margin-bottom: var(--space-4);
   }
 
   .cv-skills__title {
