@@ -1,0 +1,45 @@
+---
+import '../styles/global.css';
+import SiteNav from '../components/nav/SiteNav.astro';
+import SiteFooter from '../components/footer/SiteFooter.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = site.description } = Astro.props;
+const pageTitle = title ? `${title} · ${site.name}` : site.name;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link
+      rel="preload"
+      href="/fonts/InterVariable.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <SiteNav />
+    <main>
+      <slot />
+    </main>
+    <SiteFooter />
+    <script>
+      import '../scripts/reveal.ts';
+    </script>
+  </body>
+</html>

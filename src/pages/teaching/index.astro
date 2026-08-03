@@ -1,0 +1,27 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/sections/SectionHeading.astro';
+import Reveal from '../../components/sections/Reveal.astro';
+import TeachingCard from '../../components/teaching/TeachingCard.astro';
+
+const allTeaching = await getCollection('teaching');
+allTeaching.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="Teaching" description="Teaching experience of Damjan Kalšan.">
+  <div class="container page">
+    <Reveal>
+      <SectionHeading eyebrow="Teaching" title="Teaching" />
+    </Reveal>
+    <Reveal as="section">
+      {allTeaching.map((entry) => <TeachingCard entry={entry} />)}
+    </Reveal>
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    padding-block: var(--space-5) var(--space-6);
+  }
+</style>

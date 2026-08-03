@@ -1,0 +1,63 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'publications'>;
+}
+const { entry } = Astro.props;
+const { title, venue, date, authors, excerpt, placeholder } = entry.data;
+
+const categoryLabel: Record<string, string> = {
+  journal: 'Journal Article',
+  conference: 'Conference Paper',
+  book: 'Book Chapter',
+};
+---
+
+<article class="pub-card">
+  <div class="pub-card__meta">
+    <span class="eyebrow">{categoryLabel[entry.data.category]}</span>
+    {placeholder && <span class="placeholder-badge">Placeholder</span>}
+  </div>
+  <h3 class="pub-card__title">
+    <a href={`/publications/${entry.id}/`} class="link-accent">{title}</a>
+  </h3>
+  <p class="pub-card__venue">{venue} · {date.getFullYear()}</p>
+  <p class="pub-card__authors">{authors.join(', ')}</p>
+  <p class="pub-card__excerpt">{excerpt}</p>
+</article>
+
+<style>
+  .pub-card {
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .pub-card__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: 0.35rem;
+  }
+
+  .pub-card__title {
+    font-size: 1.25rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .pub-card__venue {
+    color: var(--color-text-muted);
+    font-size: var(--size-small);
+    margin-bottom: 0.5rem;
+  }
+
+  .pub-card__authors {
+    font-size: var(--size-small);
+    color: var(--color-text-muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .pub-card__excerpt {
+    max-width: var(--content-width);
+  }
+</style>

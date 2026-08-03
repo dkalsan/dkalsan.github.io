@@ -1,0 +1,46 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'teaching'>;
+}
+const { entry } = Astro.props;
+const { course, institution, role, date, location, placeholder } = entry.data;
+---
+
+<article class="teach-card">
+  <div class="teach-card__meta">
+    <span class="eyebrow">{role}</span>
+    {placeholder && <span class="placeholder-badge">Placeholder</span>}
+  </div>
+  <h3 class="teach-card__title">
+    <a href={`/teaching/${entry.id}/`} class="link-accent">{course}</a>
+  </h3>
+  <p class="teach-card__org">
+    {institution}{location && `, ${location}`} · {date.getFullYear()}
+  </p>
+</article>
+
+<style>
+  .teach-card {
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .teach-card__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: 0.35rem;
+  }
+
+  .teach-card__title {
+    font-size: 1.25rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .teach-card__org {
+    color: var(--color-text-muted);
+    font-size: var(--size-small);
+  }
+</style>

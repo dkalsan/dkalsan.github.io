@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionHeading from '../../components/sections/SectionHeading.astro';
+import Reveal from '../../components/sections/Reveal.astro';
+import PublicationCard from '../../components/publications/PublicationCard.astro';
+
+const allPublications = await getCollection('publications');
+allPublications.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const categories = [
+  { key: 'conference', label: 'Conference Papers' },
+  { key: 'journal', label: 'Journal Articles' },
+  { key: 'book', label: 'Books & Chapters' },
+] as const;
+---
+
+<BaseLayout title="Publications" description="Publications by Damjan Kalšan.">
+  <div class="container page">
+    <Reveal>
+      <SectionHeading eyebrow="Research" title="Publications" />
+    </Reveal>
+
+    {
+      categories.map(({ key, label }) => {
+        const entries = allPublications.filter((p) => p.data.category === key);
+        if (entries.length === 0) return null;
+        return (
+          <Reveal as="section" class="pub-group">
+            <h3 class="pub-group__label">{label}</h3>
+            {entries.map((entry) => (
+              <PublicationCard entry={entry} />
+            ))}
+          </Reveal>
+        );
+      })
+    }
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    padding-block: var(--space-5) var(--space-6);
+  }
+
+  .pub-group {
+    margin-bottom: var(--space-5);
+  }
+
+  .pub-group__label {
+    font-size: var(--size-h2);
+    margin-bottom: var(--space-2);
+  }
+</style>

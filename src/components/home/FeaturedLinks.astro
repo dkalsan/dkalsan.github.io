@@ -1,0 +1,84 @@
+---
+const links = [
+  {
+    title: 'Publications',
+    description: 'Papers, preprints, and talks.',
+    href: '/publications/',
+  },
+  {
+    title: 'Teaching',
+    description: 'Courses and lab supervision.',
+    href: '/teaching/',
+  },
+  {
+    title: 'CV',
+    description: 'Education, positions, and skills.',
+    href: '/cv/',
+  },
+];
+---
+
+<ul class="featured-links">
+  {
+    links.map(({ title, description, href }) => (
+      <li>
+        <a href={href} class="featured-links__card">
+          <span class="featured-links__title">{title}</span>
+          <span class="featured-links__description">{description}</span>
+          <span class="featured-links__arrow" aria-hidden="true">
+            →
+          </span>
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .featured-links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-3);
+  }
+
+  .featured-links__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: var(--space-3);
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: border-color 200ms var(--ease-out), transform 200ms var(--ease-out);
+    position: relative;
+  }
+
+  .featured-links__card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+
+  .featured-links__title {
+    font-weight: 700;
+    font-size: 1.15rem;
+  }
+
+  .featured-links__description {
+    color: var(--color-text-muted);
+    font-size: var(--size-small);
+  }
+
+  .featured-links__arrow {
+    position: absolute;
+    top: var(--space-3);
+    right: var(--space-3);
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 45rem) {
+    .featured-links {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

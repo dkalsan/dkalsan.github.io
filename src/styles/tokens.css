@@ -1,0 +1,46 @@
+@font-face {
+  font-family: 'Inter Variable';
+  src: url('/fonts/InterVariable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Color */
+  --color-text: #0a0a0a;
+  --color-text-muted: #5c5c5c;
+  --color-bg: #fafaf9;
+  --color-border: #e5e3e0;
+  --color-accent: #ff4b1f;
+  --color-accent-contrast: #fff8f6;
+
+  /* Type */
+  --font-sans: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --size-hero: clamp(2.75rem, 4.5vw + 1.5rem, 6rem);
+  --size-h1: clamp(2.25rem, 2.5vw + 1.25rem, 3.5rem);
+  --size-h2: clamp(1.5rem, 1vw + 1.1rem, 2rem);
+  --size-body: 1.0625rem;
+  --size-small: 0.875rem;
+  --tracking-tight: -0.02em;
+  --leading-tight: 1.05;
+  --leading-normal: 1.6;
+
+  /* Space */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6rem;
+  --space-7: 9rem;
+
+  /* Layout */
+  --content-width: 42rem;
+  --page-width: 72rem;
+  --page-padding: clamp(1.25rem, 4vw, 3rem);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-reveal: 600ms;
+}

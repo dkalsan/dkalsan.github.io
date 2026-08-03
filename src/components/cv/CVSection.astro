@@ -1,0 +1,26 @@
+---
+import type { CVEntry as CVEntryType } from '../../data/cv';
+import CVEntry from './CVEntry.astro';
+
+interface Props {
+  title: string;
+  entries: CVEntryType[];
+}
+const { title, entries } = Astro.props;
+---
+
+<section class="cv-section">
+  <h3 class="cv-section__title">{title}</h3>
+  {entries.map((entry) => <CVEntry entry={entry} />)}
+</section>
+
+<style>
+  .cv-section {
+    margin-bottom: var(--space-5);
+  }
+
+  .cv-section__title {
+    font-size: var(--size-h2);
+    margin-bottom: var(--space-2);
+  }
+</style>

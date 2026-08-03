@@ -1,0 +1,68 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('teaching');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { course, institution, role, date, location, placeholder } = entry.data;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={course} description={`${role} — ${course}`}>
+  <article class="container page">
+    <div class="page__meta">
+      <span class="eyebrow">{role}</span>
+      {placeholder && <span class="placeholder-badge">Placeholder</span>}
+    </div>
+    <h1 class="page__title">{course}</h1>
+    <p class="page__org">
+      {institution}{location && `, ${location}`} · {date.getFullYear()}
+    </p>
+
+    <div class="page__body">
+      <Content />
+    </div>
+
+    <a href="/teaching/" class="link-accent page__back">&larr; Back to teaching</a>
+  </article>
+</BaseLayout>
+
+<style>
+  .page {
+    padding-block: var(--space-5) var(--space-6);
+    max-width: var(--content-width);
+  }
+
+  .page__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .page__title {
+    font-size: var(--size-h1);
+    margin-bottom: var(--space-2);
+  }
+
+  .page__org {
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-3);
+  }
+
+  .page__body {
+    margin-bottom: var(--space-4);
+  }
+
+  .page__back {
+    font-size: var(--size-small);
+    font-weight: 600;
+  }
+</style>

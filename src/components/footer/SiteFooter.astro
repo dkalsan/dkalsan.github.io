@@ -1,0 +1,84 @@
+---
+import { site } from '../../data/site';
+import GitHubIcon from '../icons/GitHubIcon.astro';
+import LinkedInIcon from '../icons/LinkedInIcon.astro';
+import ScholarIcon from '../icons/ScholarIcon.astro';
+import OrcidIcon from '../icons/OrcidIcon.astro';
+import EmailIcon from '../icons/EmailIcon.astro';
+
+const year = new Date().getFullYear();
+
+const links = [
+  { label: 'GitHub', href: site.social.github, Icon: GitHubIcon },
+  { label: 'LinkedIn', href: site.social.linkedin, Icon: LinkedInIcon },
+  { label: 'Google Scholar', href: site.social.googleScholar, Icon: ScholarIcon },
+  { label: 'ORCID', href: site.social.orcid, Icon: OrcidIcon },
+  { label: 'Email', href: `mailto:${site.email}`, Icon: EmailIcon },
+];
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <p class="footer__meta">
+      © {year} {site.name} · {site.location}
+    </p>
+    <ul class="footer__links">
+      {
+        links.map(({ label, href, Icon }) => (
+          <li>
+            <a href={href} class="footer__icon-link" aria-label={label} target="_blank" rel="noopener noreferrer">
+              <Icon class="footer__icon" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--color-border);
+    padding-block: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+
+  .footer__meta {
+    font-size: var(--size-small);
+    color: var(--color-text-muted);
+  }
+
+  .footer__links {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .footer__icon-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    color: var(--color-text-muted);
+    transition: color 150ms var(--ease-out), background-color 150ms var(--ease-out);
+  }
+
+  .footer__icon-link:hover {
+    color: var(--color-accent);
+    background: var(--color-accent-contrast);
+  }
+
+  .footer__icon {
+    width: 1.05rem;
+    height: 1.05rem;
+  }
+</style>
